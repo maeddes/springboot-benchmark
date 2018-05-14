@@ -17,3 +17,16 @@ java -jar -Xmx256m target/load-0.0.1-SNAPSHOT.jar
 - breaks at allocation of 200mb
 
 # container
+
+docker run -d -p 8081:8080 load:v0.1
+
+docker stats
+
+CONTAINER ID        NAME                CPU %               MEM USAGE / LIMIT     MEM %               NET I/O             BLOCK I/O           PIDS
+fdcd36522481        suspicious_spence   0.21%               326.3MiB / 5.818GiB   5.48%               1.44kB / 0B         56.2MB / 0B         32
+
+does not increase with increasing load
+
+# kubernetes
+
+same
