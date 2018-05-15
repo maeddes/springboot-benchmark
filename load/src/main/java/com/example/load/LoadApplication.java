@@ -1,5 +1,7 @@
 package com.example.load;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,11 +19,24 @@ public class LoadApplication {
 
 	@Value("${KBV_ID:not_set}")
 	private String id;
+	
+	@Value("${KBV_INIT:false}")
+	private String loadOnStartup = "false";
+	
 	private boolean isLoaded = false;
 	private byte[] payload = null;
 	
 	private static int MAX_LOAD = 300; //MB
 	private static int TIME_SIZE_RATIO = 100; //MB processed per second
+
+	@PostConstruct
+	private void postConstruct(){
+
+		System.out.println("In postConstruct");
+		if(loadOnStartup.equals("true"))
+			this.initializePayload(15, 150); 
+
+	}
 
 	@GetMapping("/ready")
 	@ResponseBody
