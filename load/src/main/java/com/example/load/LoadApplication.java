@@ -33,6 +33,7 @@ public class LoadApplication {
 	private void postConstruct(){
 
 		System.out.println("In postConstruct");
+		System.out.println("Xmx: "+Runtime.getRuntime().maxMemory());
 		if(loadOnStartup.equals("true"))
 			this.initializePayload(15, 150); 
 
