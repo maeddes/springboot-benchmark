@@ -22,6 +22,28 @@ public class LoadApplication {
 	
 	@Value("${KBV_INIT:false}")
 	private String loadOnStartup = "false";
+
+	@Value("${CF_INSTANCE_GUID:not_set}")
+	String cfInstance;
+
+	@Value("${HOSTNAME:not_set}")
+	String hostname;
+
+	private String getHostName() {
+
+		if (!hostname.equals("not_set"))
+			return hostname;
+		if (!cfInstance.equals("not_set"))
+			return cfInstance;
+		return "no_host_info";
+
+	}
+
+	@GetMapping("/hello")
+	String hello() {
+
+		return getHostName() + ": Hello, bootiful world! ";
+	}
 	
 	private boolean isLoaded = false;
 	private byte[] payload = null;

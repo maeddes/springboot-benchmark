@@ -1,0 +1,6 @@
+FROM maeddes/apm-base:v0.1
+ADD target/load-0.0.1-SNAPSHOT.jar app.jar
+ARG XMX
+ENV XMX ${XMX:-384m}
+RUN echo Hallo $XMX
+ENTRYPOINT java -jar -Xmx${XMX} -javaagent:/opt/appdynamics/javaagent.jar -Dappdynamics.agent.reuse.nodeName=true -Dappdynamics.agent.reuse.nodeName.prefix=${APPDYNAMICS_NODE_PREFIX} /app.jar
